@@ -5,6 +5,7 @@ using DataLayer.Entityes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
+// Data description
 namespace DataLayer
 {
     public class EFDBContext : DbContext
@@ -24,9 +25,7 @@ namespace DataLayer
         public EFDBContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<EFDBContext>();
-            //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=loftBlogASPCoreDb;Trusted_Connection=True;MultipleActiveResultSets=true", b => b.MigrationsAssembly("DataLayer"));
-            //optionsBuilder.UseNpgsql("Server=ec2-54-146-84-101.compute-1.amazonaws.com;Port=5432;Database=d3bgr2pkr21tu7;User Id=wsmlghywgyjjkt;Password=9bc748df1b6b411484fdc9cba5bc9470ac5f8af85d01e401f08e542317082324;Pooling=true;SSL Mode=Require;TrustServerCertificate=True;");
-            optionsBuilder.UseNpgsql("Server=ec2-54-146-84-101.compute-1.amazonaws.com;Port=5432;Database=d3bgr2pkr21tu7;User Id=wsmlghywgyjjkt;Password=9bc748df1b6b411484fdc9cba5bc9470ac5f8af85d01e401f08e542317082324;Pooling=true;SSL Mode=Require;TrustServerCertificate=True;");
+            optionsBuilder.UseNpgsql("CONNECTION STRING");
             return new EFDBContext(optionsBuilder.Options);
         }
     }

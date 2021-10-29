@@ -8,6 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BuisnessLayer;
+using BuisnessLayer.Implementations;
+using BuisnessLayer.Interfaces;
+using DataLayer;
+using Microsoft.EntityFrameworkCore;
 
 namespace Example3TierArchitecture
 {
@@ -23,6 +28,14 @@ namespace Example3TierArchitecture
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // DB
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<EFDBContext>(options => options.UseNpgsql(connection));
+
+            // Repos
+            services.AddTransient<IDirectorysRepository, EFDirectorysRepository>();
+            services.AddTransient<IMaterialsRepository, EFMaterialsRepository>();
+            services.AddScoped<DataManager>();
             services.AddControllersWithViews();
         }
 

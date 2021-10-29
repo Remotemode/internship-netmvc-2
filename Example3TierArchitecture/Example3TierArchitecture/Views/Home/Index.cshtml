@@ -1,8 +1,30 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@*@model HelloModel*@
+
+@model List<DataLayer.Entityes.Directory>
+@{
+  ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div class="row">
+  <div class="col-md-12">
+   @*<h1>@Model.HelloMessage</h1>*@
+    <ul>
+      @foreach (var item in Model)
+      {
+        <li>
+          <h2>@item.Title</h2>
+          <ul>
+            @if (item.Materials != null)
+            {
+              foreach (var subItem in item.Materials)
+              {
+                <li>@subItem.Title</li>
+              }
+            }
+          </ul>
+        </li>
+      }
+    </ul>
+  </div>
+</div> 

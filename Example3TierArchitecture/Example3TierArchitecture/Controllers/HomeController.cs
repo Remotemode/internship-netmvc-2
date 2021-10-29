@@ -6,21 +6,26 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using BuisnessLayer;
+using DataLayer.Entityes;
 
 namespace Example3TierArchitecture.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private DataManager _dataManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, DataManager dataManager)
         {
             _logger = logger;
+            _dataManager = dataManager;
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<Directory> _directories = _dataManager.Directorys.GetAllDirectorys(true).ToList();
+            return View(_directories);
         }
 
         public IActionResult Privacy()
