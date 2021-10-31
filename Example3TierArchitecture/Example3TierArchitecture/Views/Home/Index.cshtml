@@ -1,31 +1,39 @@
-﻿
-@*@model HelloModel*@
-@using PresentationLayer.Models;
-
-@model List<PresentationLayer.Models.DirectoryViewModel>
-@{
-  ViewData["Title"] = "Home Page";
-}
+﻿@using PresentationLayer.Models;
+@using DataLayer.Enums;
+@model List<DirectoryViewModel>
+@{ ViewData["Title"] = "Home Page"; }
 
 <div class="row">
   <div class="col-md-12">
-   @*<h1>@Model.HelloMessage</h1>*@
+    <h1>Directories</h1>
+    <button>
+      <a asp-action="PageEditor" asp-controller="Page" asp-route-pageId="0" asp-route-pageType="@PageEnums.PageType.Directory">Create Directory</a>
+    </button>
     <ul>
       @foreach (var item in Model)
       {
         <li>
-          <h2>@item.Directory.Title</h2>
+          <h2>
+            <a asp-action="Index" asp-controller="Page" asp-route-pageId="@item.Directory.Id" asp-route-pageType="@PageEnums.PageType.Directory">@item.Directory.Title</a>
+            <a asp-action="PageEditor" asp-controller="Page" asp-route-pageId="@item.Directory.Id" asp-route-pageType="@PageEnums.PageType.Directory">Edit Directory</a>
+          </h2>
           <ul>
             @if (item.Materials != null)
             {
               foreach (var subItem in item.Materials)
               {
-                <li>@subItem.Material.Title</li>
+                <li>
+                  <a asp-action="Index" asp-controller="Page" asp-route-pageId="@subItem.Material.Id" asp-route-pageType="@PageEnums.PageType.Material">@subItem.Material.Title</a>
+                  <a asp-action="PageEditor" asp-controller="Page" asp-route-pageId="@subItem.Material.Id" asp-route-directoryid="@item.Directory.Id" asp-route-pageType="@PageEnums.PageType.Material">Edit Material</a>
+                </li>
               }
+              <li>
+                <a asp-action="PageEditor" asp-controller="Page" asp-route-pageId="0" asp-route-directoryid="@item.Directory.Id" asp-route-pageType="@PageEnums.PageType.Material"> Create Material</a>
+              </li>
             }
           </ul>
         </li>
       }
     </ul>
   </div>
-</div> 
+</div>
