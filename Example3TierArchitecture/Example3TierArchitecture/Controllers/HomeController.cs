@@ -8,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using BuisnessLayer;
 using DataLayer.Entityes;
+using PresentationLayer;
+using PresentationLayer.Models;
 
 namespace Example3TierArchitecture.Controllers
 {
@@ -15,16 +17,18 @@ namespace Example3TierArchitecture.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private DataManager _dataManager;
-
+        private ServicesManager _servicesManager;
+        
         public HomeController(ILogger<HomeController> logger, DataManager dataManager)
         {
             _logger = logger;
             _dataManager = dataManager;
+            _servicesManager = new ServicesManager(_dataManager);
         }
 
         public IActionResult Index()
         {
-            List<Directory> _directories = _dataManager.Directorys.GetAllDirectorys(true).ToList();
+            List<DirectoryViewModel> _directories = _servicesManager.Directorys.GetDirectoryesList();
             return View(_directories);
         }
 
